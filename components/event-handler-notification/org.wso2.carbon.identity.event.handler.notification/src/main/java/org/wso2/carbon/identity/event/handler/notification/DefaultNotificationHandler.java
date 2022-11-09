@@ -151,6 +151,7 @@ public class DefaultNotificationHandler extends AbstractEventHandler {
                 }
             }
             if(StringUtils.isEmpty(sendTo)) {
+
                 if(NotificationChannels.SMS_CHANNEL.getChannelType().equals(notificationChannel)){
                     if (userClaims.containsKey(NotificationConstants.SMSNotification.CLAIM_URI_MOBILE)) {
                         sendTo = userClaims.get(NotificationConstants.SMSNotification.CLAIM_URI_MOBILE);
