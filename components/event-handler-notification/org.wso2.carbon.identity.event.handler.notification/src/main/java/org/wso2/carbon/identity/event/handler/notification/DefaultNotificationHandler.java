@@ -105,7 +105,7 @@ public class DefaultNotificationHandler extends AbstractEventHandler {
         }
 
         // Read the send-to parameter which was set by the notification senders.
-        String sendTo = arbitraryDataMap.get(NotificationConstants.EmailNotification.ARBITRARY_SEND_TO);
+        String sendTo = arbitraryDataMap.get(NotificationConstants.ARBITRARY_SEND_TO);
         Map<String, String> userClaims = new HashMap<>();
 
         String notificationTemplateName = getNotificationTemplate(event);
@@ -151,8 +151,14 @@ public class DefaultNotificationHandler extends AbstractEventHandler {
                 }
             }
             if(StringUtils.isEmpty(sendTo)) {
-                if (userClaims.containsKey(NotificationConstants.EmailNotification.CLAIM_URI_EMAIL)) {
-                    sendTo = userClaims.get(NotificationConstants.EmailNotification.CLAIM_URI_EMAIL);
+                if(NotificationChannels.SMS_CHANNEL.getChannelType().equals(notificationChannel)){
+                    if (userClaims.containsKey(NotificationConstants.SMSNotification.CLAIM_URI_MOBILE)) {
+                        sendTo = userClaims.get(NotificationConstants.SMSNotification.CLAIM_URI_MOBILE);
+                    }
+                } else {
+                    if (userClaims.containsKey(NotificationConstants.EmailNotification.CLAIM_URI_EMAIL)) {
+                        sendTo = userClaims.get(NotificationConstants.EmailNotification.CLAIM_URI_EMAIL);
+                    }
                 }
             }
 
